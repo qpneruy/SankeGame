@@ -1,2 +1,12 @@
-﻿  Main.cpp
-  TicTacToeSDL.vcxproj -> D:\Project\TicTacToe Project\TicTacToeSDL\TicTacToeSDL\Debug\TicTacToeSDL.exe
+﻿  MainFile.cpp
+D:\Project\TicTacToe Project\TicTacToeSDL\TicTacToeSDL\TicTacToeSDL\MainFile.cpp(120,12): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+D:\Project\TicTacToe Project\TicTacToeSDL\TicTacToeSDL\TicTacToeSDL\MainFile.cpp(120,6): error C2146: syntax error: missing ';' before identifier 'pipe_A'
+D:\Project\TicTacToe Project\TicTacToeSDL\TicTacToeSDL\TicTacToeSDL\MainFile.cpp(121,12): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+D:\Project\TicTacToe Project\TicTacToeSDL\TicTacToeSDL\TicTacToeSDL\MainFile.cpp(121,1): error C2086: 'int Pipe': redefinition
+D:\Project\TicTacToe Project\TicTacToeSDL\TicTacToeSDL\TicTacToeSDL\MainFile.cpp(120,1): message : see declaration of 'Pipe'
+D:\Project\TicTacToe Project\TicTacToeSDL\TicTacToeSDL\TicTacToeSDL\MainFile.cpp(121,6): error C2146: syntax error: missing ';' before identifier 'pipe_B'
+D:\Project\TicTacToe Project\TicTacToeSDL\TicTacToeSDL\TicTacToeSDL\MainFile.cpp(122,12): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+D:\Project\TicTacToe Project\TicTacToeSDL\TicTacToeSDL\TicTacToeSDL\MainFile.cpp(122,1): error C2086: 'int Pipe': redefinition
+D:\Project\TicTacToe Project\TicTacToeSDL\TicTacToeSDL\TicTacToeSDL\MainFile.cpp(120,1): message : see declaration of 'Pipe'
+D:\Project\TicTacToe Project\TicTacToeSDL\TicTacToeSDL\TicTacToeSDL\MainFile.cpp(122,6): error C2146: syntax error: missing ';' before identifier 'pipe_C'
+D:\Project\TicTacToe Project\TicTacToeSDL\TicTacToeSDL\TicTacToeSDL\MainFile.cpp(159,2): error C2065: 'pipe_A': undeclared identifier
