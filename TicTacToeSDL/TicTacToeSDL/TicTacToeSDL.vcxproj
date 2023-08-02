@@ -139,6 +139,7 @@
   <ItemGroup>
     <ClCompile Include="aNIMATION P.cpp" />
     <ClCompile Include="demo.cpp" />
+    <ClCompile Include="FileName.cpp" />
     <ClCompile Include="Texture Module.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="main2.cpp" />

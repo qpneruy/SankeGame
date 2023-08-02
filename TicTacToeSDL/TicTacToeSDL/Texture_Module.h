@@ -14,11 +14,11 @@ public:
     void setAlpha(Uint8 alpha);
     int getWidth();
     int getHeight();
-    bool render(int x, int y, int w, int h, SDL_Rect* clip = NULL, double angle = 0.0, SDL_Point* center = NULL, SDL_RendererFlip flip = SDL_FLIP_NONE);
+    bool render(double x, double y, double w, double h, SDL_Rect* clip = NULL, double angle = 0.0, SDL_Point* center = NULL, SDL_RendererFlip flip = SDL_FLIP_NONE);
 private:
     SDL_Texture* Texture = NULL;
-    int mWidth;
-    int mHeight;
+    int mWidth = 0;
+    int mHeight = 0;
 };
 bool init(int SCREEN_WIDTH, int SCREEN_HEIGHT);
 SDL_Window* getScreen();

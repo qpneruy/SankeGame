@@ -1,35 +1,65 @@
 #include "Texture_Module.h"
-
+#include <SDL_mixer.h>
 #include "GLOBAL_DATA.h"
-
+#include <iostream>
+#include <stdlib.h>
+#define GRAVITY 0.6
+#define JUMP_VELOCITY -7
+#define On_Ground 610
+#define Angel_Velocity 0.3
 using namespace std;
 const int Sngang = 530;
 const int Scao = 800;
 extern SDL_Window* Sceen;
 extern SDL_Renderer* GRenderer;
-
-LoadTexture LBird;
-class Bird {
-public: void HandleEventBird(SDL_Event& e);
-      void Move();
-      void BirdRender();
-private: int DotH = 32;
-       int DotW = 32;
-public: int DotPosX = 0;
-      int DotVelY = 0;
-      int DotVelX = 0;
-      int DotPosY = 0;
+class Bird: public LoadTexture {
+public:
+    Bird();
+    double x = 120, y, angel, Angel;
+    double vel_y, angel_Vel;
+    SDL_Rect Hitbox;
+    void BirdUpdate();
+    void BirdFlap();
+private:
+    int DOT_Y = 684;
 };
 
+void Bird::BirdUpdate() {
+    y += vel_y;
+    Angel += angel_Vel;
+    angel_Vel += Angel_Velocity;
+    vel_y += GRAVITY;
+    if (y > DOT_Y) {
+        y = DOT_Y;
+        vel_y = 0;
+    }
+    if (angel_Vel > 33 || Angel > 33) {
+        cout << "da reset";
+       angel_Vel = 33;
+       Angel = 33;
+    }
+    if (angel_Vel <-33 || Angel < -33) {
+        cout << "da resetlloal>>";
+        angel_Vel = 0;
+        Angel = -32;
+    }
+}
+void Bird::BirdFlap() {
+        vel_y = JUMP_VELOCITY;
+        angel_Vel = -10;
+  
+}
 const int ANIMATION_SPEED = 100;
 int currentFrame = 0;
 Uint32 frameTime = 0;
 
 SDL_Rect gSpriteClips[3];
 LoadTexture gSpriteSheetTexture;
-void Bird::BirdRender() {
-    LBird.Loadformfile("D:\\Project\\flappy_bird asset\\bird.png");
-
+ Bird::Bird() { 
+    Hitbox.x = 2;
+    Hitbox.y = 0;
+    Hitbox.h = 24;
+    Hitbox.w = 34;
     gSpriteClips[0].x = 2;
     gSpriteClips[0].y = 0;
     gSpriteClips[0].h = 24;
@@ -46,135 +76,138 @@ void Bird::BirdRender() {
     gSpriteClips[2].w = 34;
 
 }
-void Bird::HandleEventBird(SDL_Event& e) {
-    if (e.type == SDL_KEYDOWN && e.key.repeat == 0) {
-        switch (e.key.keysym.sym) {
-        case SDLK_UP:
-            DotVelY += -5;
-            break;
-        case SDLK_DOWN:
-            DotVelY += 5;
-            break;
-        case SDLK_LEFT:
-            DotVelX += -5;
-            break;
-        case SDLK_RIGHT:
-            DotVelX += 5;
-            break;
-        };
-    }
-    else if (e.type == SDL_KEYUP && e.key.repeat == 0) {
-        switch (e.key.keysym.sym) {
-        case SDLK_UP:
-            DotVelY += 5;
-            break;
-        case SDLK_DOWN:
-            DotVelY += -5;
-            break;
-        case SDLK_LEFT:
-            DotVelX += +5;
-            break;
-        case SDLK_RIGHT:
-            DotVelX += -5;
-            break;
-        };
-    }
+
+class Pipe: public LoadTexture {
+public:
+    int randomnumber;
+    int Spacing = 0;
+    int old_y = 0;
+    int bgX = 0;
+    Pipe();
+    SDL_Rect Hitbox;
+    SDL_Rect SpriteClipsPipe;
+    void PipeUpdate();
+    int PGenerator(int old_y);
+    int pipePosX = 0, pipePosY = 0;
+private:
+    int bgSpeed = 4;
+};
+Pipe::Pipe() {
+    SpriteClipsPipe.h = 235;
+    SpriteClipsPipe.w = 52;
+    Hitbox.h = 235;
+    Hitbox.w = 52;
 }
 
-int dotX = 0;
-int dotY = 0;
-void Bird::Move() {
-
-    dotY += DotVelY;
-    dotX += DotVelX;
-
-    if (dotY <= -1) {
-        dotY = Scao - 16;
+int Pipe::PGenerator(int old_y) {
+    int b = old_y + 40; int a = old_y - 40;
+        while (randomnumber < old_y + 40 && randomnumber > old_y - 40) {
+            randomnumber = rand() % b - a;
+            if (randomnumber >= 680) {
+                randomnumber = 680;
+           
+        }
     }
-
-    if (dotY >= Scao) {
-        dotY = 0;
-    }
-
-    if (dotX <= -1) {
-        dotX = Sngang - 16;
-    }
-
-    if (dotX >= Sngang) {
-        dotX = 0;
-    }
+    return  randomnumber;
 }
-
-int bgX = 0;
-int bgSpeed = 1;
-void updateBackground() {
+void Pipe::PipeUpdate() {
     bgX -= bgSpeed;
+    if (bgX <= Spacing-50) {
+        bgX = Sngang+10;
+        Spacing = 0;
+        old_y = PGenerator(old_y);
+
+    }
+}
+class Background: public LoadTexture {
+public:
+    int bgX = 0;
+    void BGUpdate();
+private:
+   int bgSpeed = 5;
+};
+void Background::BGUpdate() {
+    bgX -= bgSpeed;
+    
     if (bgX <= 0) {
         bgX = Sngang;
     }
 }
-
-LoadTexture A_pipe;
-LoadTexture B_pipe;
-LoadTexture C_pipe;
-Pipe pipe_A;
-Pipe pipe_B;
-Pipe pipe_C;
-class Pipe {
-public:
-    int posX, posY;
-    int pW, pH;
-    void PGenerator();
-    void Moving();
-private:
-    int PipeMoveSpeed = 1;
-    int PipePosX = 0;
-};
-void Pipe::PGenerator() {
-    // tinh toan cac gia tri can thiet nhu se xuat hien o dau vi tri nao lo se o chieu cao nao cho hop li nhat chay ranfom
-    // trong pham vi
-    // task 1/08/2023: sdl rect, kiem tra va cham voi anh
-}
-void Pipe::Moving() {
-    PipePosX -= PipeMoveSpeed;
-    if (PipePosX <= 0) {
-        PipePosX = Sngang;
+bool ColisionCheck(int A_x, int A_y, SDL_Rect* RectA, int B_x, int B_y, SDL_Rect* RectB) {
+    SDL_Rect rectA = { A_x, A_y, RectA->w, RectA->h };
+    SDL_Rect rectB = { B_x, B_y, RectB->w, RectB->h };
+    if (SDL_HasIntersection(&rectA, &rectB)) {
+        return true;
+    }
+    else {
+        return false; 
     }
 }
+
 int main(int agrc, char* args[]) {
  init(Sngang, Scao);
- A_pipe.Loadformfile("D:\\Project\\flappy_bird asset\\cot.png");
- B_pipe.Loadformfile("D:\\Project\\flappy_bird asset\\cot.png");
- C_pipe.Loadformfile("D:\\Project\\flappy_bird asset\\cot.png");
- LoadTexture Cot;
- LoadTexture bg;
- LoadTexture ground;
- Bird Bird;
- ground.Loadformfile("D:\\Project\\flappy_bird asset\\Ground.png");
- bg.Loadformfile("D:\\Project\\flappy_bird asset\\bg.png");
- Cot.Loadformfile("D:\\Project\\flappy_bird asset\\cot.png");
- ground.render(0, 636, 479, 174);
- Bird.BirdRender();
-
+ SDL_Init(SDL_INIT_AUDIO);
+ Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
+ //Mix_Music* score = Mix_LoadMUS("D:\\Project\\flappy_bird asset\\score.mp3");
+ Mix_Chunk* score = Mix_LoadWAV("D:\\Project\\flappy_bird asset\\score.mp3");
+ Mix_Chunk* flap = Mix_LoadWAV("D:\\Project\\flappy_bird asset\\fly.mp3");
+ Bird Bird; Background BG; Background Ground;
+ Ground.Loadformfile("D:\\Project\\flappy_bird asset\\Ground.png");
+ BG.Loadformfile("D:\\Project\\flappy_bird asset\\bg.png");
+ Bird.Loadformfile("D:\\Project\\flappy_bird asset\\bird.png");
+ Pipe Cot1; Pipe Cot2; Pipe Cot3;
+ Pipe Cot1up; Pipe Cot2up; Pipe Cot3up;
+ string PipePath = "D:\\Project\\flappy_bird asset\\cot.png";
+ Cot1.Loadformfile(PipePath);
+ Cot2.Loadformfile(PipePath);
+ Cot3.Loadformfile(PipePath);
+ string PipePath2 = "D:\\Project\\flappy_bird asset\\cot2.png";
+ Cot1up.Loadformfile(PipePath2);
+ Cot2up.Loadformfile(PipePath2);
+ Cot3up.Loadformfile(PipePath2);
+ Ground.render(0, 636, 479, 174);
+ BG.render(0, 0, Sngang, 636);
+ Cot1.Spacing = -50; Cot2.Spacing = -250; Cot3.Spacing = -415;
  SDL_Event e;
-
+ int diem = 0;
  bool quit = false;
  while (!quit) {
-  while (SDL_PollEvent(&e) != 0) {
-   if (e.type == SDL_QUIT) {
-       quit = true;
-   }
-      Bird.HandleEventBird(e);
-  }
-     Bird.Move();
-     updateBackground();
+     while (SDL_PollEvent(&e) != 0) {
+         if (e.type == SDL_QUIT) {
+             quit = true;
+         }
+         else if (e.type == SDL_KEYDOWN) {
+             if (e.key.keysym.sym == SDLK_SPACE) {
+                 Mix_PlayChannel(-1, flap, 0);
+                 Bird.BirdFlap();
+             }
+         }
+     }
+     Bird.BirdUpdate();
+     Cot1.PipeUpdate();
+     Ground.BGUpdate();
+     Cot2.PipeUpdate();
+    Cot3.PipeUpdate();
      SDL_RenderClear(GRenderer);
-     bg.render(0, 0, Sngang, 636);
-     ground.render(0, 636, Sngang, 174);
-     ground.render(bgX, 636, Sngang, 174);
-     ground.render(bgX - Sngang, 636, Sngang, 174);
-     Cot.render(300, 0, 65, Scao);
-     LBird.render(dotX, dotY, gSpriteClips[currentFrame].w, gSpriteClips[currentFrame].h, &gSpriteClips[currentFrame]);
+     BG.render(0, 0, Sngang, 636);
+     Ground.render(0, 636, Sngang, 174);
+     Ground.render(Ground.bgX, 636, Sngang, 174);
+     Ground.render(Ground.bgX - Sngang, 636, Sngang, 174);
+         Cot1.render(Cot1.bgX, Cot1.old_y-300, 52, 600);
+         Cot2.render(Cot2.bgX, Cot2.old_y-300, 52, 600);
+         Cot3.render(Cot3.bgX, Cot3.old_y-300, 52, 600);
+         if (ColisionCheck(Bird.x, Bird.y, &Bird.Hitbox, Cot1.bgX, Cot1.old_y, &Cot1.Hitbox) || ColisionCheck(Bird.x, Bird.y, &Bird.Hitbox, Cot2.bgX, Cot2.old_y, &Cot2.Hitbox) || ColisionCheck(Bird.x, Bird.y, &Bird.Hitbox, Cot3.bgX, Cot3.old_y, &Cot3.Hitbox) || ColisionCheck(Bird.x, Bird.y, &Bird.Hitbox, Cot1.bgX, Cot1.old_y + 400, &Cot1up.Hitbox) || ColisionCheck(Bird.x, Bird.y, &Bird.Hitbox, Cot2.bgX, Cot2.old_y + 400, &Cot2up.Hitbox) || ColisionCheck(Bird.x, Bird.y, &Bird.Hitbox, Cot3.bgX, Cot3.old_y + 400, &Cot3up.Hitbox)) {
+      //       std::cout << "va cham ";
+        }
+         if (Cot1.bgX == Bird.x || Cot2.bgX == Bird.x || Cot3.bgX == Bird.x) {
+             diem++;
+             Mix_PlayChannel(-1, score, 0);
+             cout << diem << " ";
+         }
+         Cot1up.render(Cot1.bgX, Cot1.old_y+400 , 52, Cot1up.SpriteClipsPipe.h-Cot1.old_y, &Cot1up.SpriteClipsPipe);
+         Cot2up.render(Cot2.bgX, Cot2.old_y+400 , 52, Cot2up.SpriteClipsPipe.h-Cot2.old_y, &Cot2up.SpriteClipsPipe);
+         Cot3up.render(Cot3.bgX, Cot3.old_y+400, 52, Cot3up.SpriteClipsPipe.h-Cot3.old_y, &Cot3up.SpriteClipsPipe);
+     Bird.render(Bird.x, Bird.y, gSpriteClips[currentFrame].w, gSpriteClips[currentFrame].h, &gSpriteClips[currentFrame], Bird.Angel);
      if (SDL_GetTicks() - frameTime >= ANIMATION_SPEED) {
         currentFrame++;
         if (currentFrame >= 3) {

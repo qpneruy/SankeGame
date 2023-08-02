@@ -26,7 +26,7 @@ public:
     void setAlpha(Uint8 alpha);
     int getWidth();
     int getHeight();
-    bool render(int x, int y, int w, int h, SDL_Rect* clip = NULL, double angle = 0.0, SDL_Point* center = NULL, SDL_RendererFlip flip = SDL_FLIP_NONE);
+    bool render(double x, double y, double w, double h, SDL_Rect* clip = NULL, double angle = 0.0, SDL_Point* center = NULL, SDL_RendererFlip flip = SDL_FLIP_NONE);
 private:
     SDL_Texture* Texture = NULL;
     int mWidth = 0;
@@ -75,7 +75,7 @@ void LoadTexture::setAlpha(Uint8 alpha){
     SDL_SetTextureAlphaMod(Texture, alpha);
 }
 
-bool LoadTexture::render(int x, int y, int w, int h, SDL_Rect* clip, double angle, SDL_Point* center, SDL_RendererFlip flip) {
+bool LoadTexture::render(double x, double y, double w, double h, SDL_Rect* clip, double angle, SDL_Point* center, SDL_RendererFlip flip) {
     SDL_Rect renderquad = { x, y, w, h };
     SDL_RenderCopyEx(GRenderer, Texture, clip, &renderquad, angle, center, flip);
     return true;

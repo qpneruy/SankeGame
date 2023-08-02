@@ -1,12 +1,14 @@
 ﻿  MainFile.cpp
-D:\Project\TicTacToe Project\TicTacToeSDL\TicTacToeSDL\TicTacToeSDL\MainFile.cpp(120,12): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
-D:\Project\TicTacToe Project\TicTacToeSDL\TicTacToeSDL\TicTacToeSDL\MainFile.cpp(120,6): error C2146: syntax error: missing ';' before identifier 'pipe_A'
-D:\Project\TicTacToe Project\TicTacToeSDL\TicTacToeSDL\TicTacToeSDL\MainFile.cpp(121,12): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
-D:\Project\TicTacToe Project\TicTacToeSDL\TicTacToeSDL\TicTacToeSDL\MainFile.cpp(121,1): error C2086: 'int Pipe': redefinition
-D:\Project\TicTacToe Project\TicTacToeSDL\TicTacToeSDL\TicTacToeSDL\MainFile.cpp(120,1): message : see declaration of 'Pipe'
-D:\Project\TicTacToe Project\TicTacToeSDL\TicTacToeSDL\TicTacToeSDL\MainFile.cpp(121,6): error C2146: syntax error: missing ';' before identifier 'pipe_B'
-D:\Project\TicTacToe Project\TicTacToeSDL\TicTacToeSDL\TicTacToeSDL\MainFile.cpp(122,12): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
-D:\Project\TicTacToe Project\TicTacToeSDL\TicTacToeSDL\TicTacToeSDL\MainFile.cpp(122,1): error C2086: 'int Pipe': redefinition
-D:\Project\TicTacToe Project\TicTacToeSDL\TicTacToeSDL\TicTacToeSDL\MainFile.cpp(120,1): message : see declaration of 'Pipe'
-D:\Project\TicTacToe Project\TicTacToeSDL\TicTacToeSDL\TicTacToeSDL\MainFile.cpp(122,6): error C2146: syntax error: missing ';' before identifier 'pipe_C'
-D:\Project\TicTacToe Project\TicTacToeSDL\TicTacToeSDL\TicTacToeSDL\MainFile.cpp(159,2): error C2065: 'pipe_A': undeclared identifier
+D:\Project\TicTacToe Project\TicTacToeSDL\TicTacToeSDL\TicTacToeSDL\MainFile.cpp(199,40): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+D:\Project\TicTacToe Project\TicTacToeSDL\TicTacToeSDL\TicTacToeSDL\MainFile.cpp(199,32): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+D:\Project\TicTacToe Project\TicTacToeSDL\TicTacToeSDL\TicTacToeSDL\MainFile.cpp(199,123): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+D:\Project\TicTacToe Project\TicTacToeSDL\TicTacToeSDL\TicTacToeSDL\MainFile.cpp(199,115): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+D:\Project\TicTacToe Project\TicTacToeSDL\TicTacToeSDL\TicTacToeSDL\MainFile.cpp(199,206): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+D:\Project\TicTacToe Project\TicTacToeSDL\TicTacToeSDL\TicTacToeSDL\MainFile.cpp(199,198): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+D:\Project\TicTacToe Project\TicTacToeSDL\TicTacToeSDL\TicTacToeSDL\MainFile.cpp(199,289): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+D:\Project\TicTacToe Project\TicTacToeSDL\TicTacToeSDL\TicTacToeSDL\MainFile.cpp(199,281): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+D:\Project\TicTacToe Project\TicTacToeSDL\TicTacToeSDL\TicTacToeSDL\MainFile.cpp(199,380): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+D:\Project\TicTacToe Project\TicTacToeSDL\TicTacToeSDL\TicTacToeSDL\MainFile.cpp(199,372): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+D:\Project\TicTacToe Project\TicTacToeSDL\TicTacToeSDL\TicTacToeSDL\MainFile.cpp(199,471): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+D:\Project\TicTacToe Project\TicTacToeSDL\TicTacToeSDL\TicTacToeSDL\MainFile.cpp(199,463): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+  TicTacToeSDL.vcxproj -> D:\Project\TicTacToe Project\TicTacToeSDL\TicTacToeSDL\Debug\TicTacToeSDL.exe
