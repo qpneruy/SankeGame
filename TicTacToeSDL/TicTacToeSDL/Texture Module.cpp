@@ -76,15 +76,15 @@ void LoadTexture::setAlpha(Uint8 alpha){
 }
 
 bool LoadTexture::render(double x, double y, double w, double h, SDL_Rect* clip, double angle, SDL_Point* center, SDL_RendererFlip flip) {
-    SDL_Rect renderquad = { x, y, w, h };
+    int _x = static_cast<int>(x);  int _w = static_cast<int>(w);
+    int _y = static_cast<int>(y);  int _h = static_cast<int>(h);
+    SDL_Rect renderquad = { _x, _y, _w, _h };
     SDL_RenderCopyEx(GRenderer, Texture, clip, &renderquad, angle, center, flip);
     return true;
 }
 int LoadTexture::getWidth(){ return mWidth; }
 int LoadTexture::getHeight(){ return mHeight; }
-
-
-bool init(int SCREEN_WIDTH, int SCREEN_HEIGHT) {
+bool init(const char* ProgramName, int SCREEN_WIDTH, int SCREEN_HEIGHT) {
     bool success = true;
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
         printf("SDL could not initialize! SDL Error: %s\n", SDL_GetError());
@@ -94,7 +94,7 @@ bool init(int SCREEN_WIDTH, int SCREEN_HEIGHT) {
         if (!SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1")) {
             printf("Warning: Linear texture filtering not enabled!");
         }
-        Screen = SDL_CreateWindow("SDL Tutorial", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+        Screen = SDL_CreateWindow(ProgramName, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
         if (Screen == NULL)
         {
             printf("Window could not be created! SDL Error: %s\n", SDL_GetError());

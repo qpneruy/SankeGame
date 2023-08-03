@@ -20,7 +20,7 @@ private:
     int mWidth = 0;
     int mHeight = 0;
 };
-bool init(int SCREEN_WIDTH, int SCREEN_HEIGHT);
+bool init(const char* ProgramName, int SCREEN_WIDTH, int SCREEN_HEIGHT);
 SDL_Window* getScreen();
 SDL_Renderer* getGRenderer();
 void close();
