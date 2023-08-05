@@ -45,9 +45,6 @@
     <ClCompile Include="demo.cpp">
       <Filter>Resource Files</Filter>
     </ClCompile>
-    <ClCompile Include="FileName.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Texture_Module.h">
