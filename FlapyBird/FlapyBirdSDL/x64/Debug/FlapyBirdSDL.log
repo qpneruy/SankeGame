@@ -1,0 +1,21 @@
+﻿  aNIMATION P.cpp
+c1xx : fatal  error C1083: Cannot open source file: 'aNIMATION P.cpp': No such file or directory
+  demo.cpp
+c1xx : fatal  error C1083: Cannot open source file: 'demo.cpp': No such file or directory
+  Texture Module.cpp
+D:\Project\FlapyBirdSDL-Git\FlapyBird\FlapyBirdSDL\Texture Module.cpp(1,10): fatal  error C1083: Cannot open include file: 'SDL_image.h': No such file or directory
+  Main.cpp
+c1xx : fatal  error C1083: Cannot open source file: 'Main.cpp': No such file or directory
+  main2.cpp
+c1xx : fatal  error C1083: Cannot open source file: 'main2.cpp': No such file or directory
+  main3.cpp
+c1xx : fatal  error C1083: Cannot open source file: 'main3.cpp': No such file or directory
+  main4.cpp
+c1xx : fatal  error C1083: Cannot open source file: 'main4.cpp': No such file or directory
+  main6.cpp
+c1xx : fatal  error C1083: Cannot open source file: 'main6.cpp': No such file or directory
+  MainFile.cpp
+D:\Project\FlapyBirdSDL-Git\FlapyBird\FlapyBirdSDL\Texture_Module.h(5,10): fatal  error C1083: Cannot open include file: 'SDL_image.h': No such file or directory
+  Scolingbg.cpp
+c1xx : fatal  error C1083: Cannot open source file: 'Scolingbg.cpp': No such file or directory
+  Generating Code...
