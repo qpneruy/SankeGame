@@ -3,134 +3,17 @@
 #include "GLOBAL_DATA.h"
 #include <iostream>
 #include <stdlib.h>
+#include "Bird.h"
+#include "Pipe.h"
 using namespace std;
 const int Sngang = 500;
 const int Scao = 760;
 extern SDL_Window* Sceen;
 extern SDL_Renderer* GRenderer;
-
-class Bird : public LoadTexture {
-public:
-    Bird();
-    int DOT_Y = 684;
-    double x = 120,
-        y = 350,
-        angel = {},
-        Angel = 0,
-        vel_y = 0,
-        GRAVITY = 0.6,
-        angel_Vel = {},
-        JUMP_VELOCITY = -7,
-        Angel_Velocity = 0.3;
-
-    SDL_Rect Hitbox;
-    void BirdUpdate();
-    void BirdFlap();
-};
-
-void Bird::BirdUpdate() {
-    y += vel_y;
-    Angel += angel_Vel;
-    angel_Vel += Angel_Velocity;
-    vel_y += GRAVITY;
-    if (y > DOT_Y) {
-        y = DOT_Y;
-        vel_y = 0;
-    }
-    if (angel_Vel > 33 || Angel > 33) {
-        Angel = 33;
-        angel_Vel = 33;
-    }
-    if (angel_Vel < -33 || Angel < -33) {
-        Angel = -32;
-        angel_Vel = 0;
-    }
-    if (y >= 628) {
-        y = 628;
-  }
-}
-
-void Bird::BirdFlap() {
-    vel_y = JUMP_VELOCITY;
-    angel_Vel = -10;
-}
-
+extern SDL_Rect gSpriteClips[4];
 const int ANIMATION_SPEED = 100;
 int currentFrame = 0;
 Uint32 frameTime = 0;
-
-SDL_Rect gSpriteClips[4];
-LoadTexture gSpriteSheetTexture;
-Bird::Bird() {
-    Hitbox.x = 2;
-    Hitbox.y = 0;
-    Hitbox.h = 24;
-    Hitbox.w = 34;
-    gSpriteClips[0].x = 2;
-    gSpriteClips[0].y = 0;
-    gSpriteClips[0].h = 24;
-    gSpriteClips[0].w = 34;
-
-    gSpriteClips[1].x = 39;
-    gSpriteClips[1].y = 0;
-    gSpriteClips[1].h = 24;
-    gSpriteClips[1].w = 34;
-
-    gSpriteClips[2].x = 76;
-    gSpriteClips[2].y = 0;
-    gSpriteClips[2].h = 24;
-    gSpriteClips[2].w = 34;
-
-    gSpriteClips[3].x = 110;
-    gSpriteClips[3].y = 0;
-    gSpriteClips[3].h = 24;
-    gSpriteClips[3].w = 34;
-}
-
-class Pipe : public LoadTexture {
-public:
-    Pipe();
-    int bgX = -50,
-        old_y = 0,
-        Spacing = 0,
-        pipePosX = 0,
-        pipePosY = 0,
-        bgSpeed = 3,
-        randomnumber = {};
-    SDL_Rect Hitbox;
-    SDL_Rect SpriteClipsPipe;
-    void PipeUpdate();
-    int PGenerator(int old_y);
-};
-
-Pipe::Pipe() {
-    SpriteClipsPipe.h = 235;
-    SpriteClipsPipe.w = 52;
-    Hitbox.h = 235;
-    Hitbox.w = 50;
-}
-
-int Pipe::PGenerator(int old_y) {
-    int b = old_y + 40; int a = old_y - 40;
-    while (randomnumber < old_y + 40 && randomnumber > old_y - 40) {
-        randomnumber = rand() % b - a;
-        if (randomnumber >= 680) {
-            randomnumber = 680;
-
-        }
-    }
-    return  randomnumber;
-}
-
-void Pipe::PipeUpdate() {
-    bgX -= bgSpeed;
-    if (bgX <= Spacing - 50) {
-        bgX = Sngang + 10;
-        Spacing = 0;
-        old_y = PGenerator(old_y);
-    }
-}
-
 class Background : public LoadTexture {
 public:
     Background();
@@ -178,7 +61,7 @@ int main(int agrc, char* args[]) {
     SDL_Init(SDL_INIT_AUDIO);
     Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
     Bird         Bird;
-    Background   BG, Ground, Text2, Menu, Caidat[2];
+    Background   BG, Ground, Text2, Menu, Caidat[2], Prompt_Mess;
     Mix_Chunk* score = Mix_LoadWAV("D:\\Project\\FlapyBirdSDL-Git\\asset\\Sound\\point.wav");
     Mix_Chunk* flap = Mix_LoadWAV("D:\\Project\\FlapyBirdSDL-Git\\asset\\Sound\\Wing.wav");
     Mix_Chunk* Die = Mix_LoadWAV("D:\\Project\\FlapyBirdSDL-Git\\asset\\Sound\\die.wav");
@@ -191,6 +74,7 @@ int main(int agrc, char* args[]) {
     Bird.Loadformfile("D:\\Project\\FlapyBirdSDL-Git\\asset\\Bird\\BirdSpite.png");
     Caidat[0].Loadformfile("D:\\Project\\FlapyBirdSDL-Git\\asset\\Caidat.png");
     Caidat[1].Loadformfile("D:\\Project\\FlapyBirdSDL-Git\\asset\\Caidat2.png");
+    Prompt_Mess.Loadformfile("D:\\Project\\FlapyBirdSDL-Git\\asset\\Mess\\prompt.png");
     Caidat[0].HitBox.h = 50;
     Caidat[0].HitBox.w = 50;
     Caidat[1].HitBox.h = 50;
@@ -228,6 +112,7 @@ int main(int agrc, char* args[]) {
                     if (e.key.keysym.sym == SDLK_SPACE) {
                         Mix_PlayChannel(-1, flap, 0);
                         Bird.BirdFlap();
+                        Bird.render(Bird.x, Bird.y, gSpriteClips[1].w, gSpriteClips[1].h, &gSpriteClips[1], 38);
                         PressedSpace = true;
                     }
                 }
@@ -293,6 +178,7 @@ int main(int agrc, char* args[]) {
             }
             else if (!_lose) {
                 Menu.render(110, 100, 300, 500);
+                Prompt_Mess.render(200, 200, 250, 100);
                 if (ColisionCheck(Mousex, Mousey, &MouseHitBox, 15, 15, &Caidat[0].HitBox)) {
                     Caidat[1].render(15, 15, 50, 50);
                 }
@@ -324,7 +210,7 @@ int main(int agrc, char* args[]) {
             Cot3.render(Cot3.bgX, Cot3.old_y - 300, 52, 600);  Cot3up.render(Cot3.bgX, Cot3.old_y + 400, 52, 485);
            
             Ground.render(Ground.bgX, 636, Sngang, 174);   Ground.render(Ground.bgX - Sngang, 636, Sngang, 174);
-            Bird.render(Bird.x, Bird.y, gSpriteClips[3].w, gSpriteClips[3].h, &gSpriteClips[3], 38);
+            Bird.render(Bird.x, Bird.y, gSpriteClips[3].w, gSpriteClips[3].h, &gSpriteClips[3], Bird.angel);
             Text2.render(155, 130, 204, 52);
             SDL_RenderPresent(GRenderer);
         }

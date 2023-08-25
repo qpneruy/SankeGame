@@ -3,8 +3,6 @@
 #define LOADTEXTURE_H
 #include <string>
 #include <SDL_image.h>
-
-
 class LoadTexture {
 public:
     ~LoadTexture();

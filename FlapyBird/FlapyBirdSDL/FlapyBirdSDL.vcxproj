@@ -139,11 +139,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Bird.cpp" />
+    <ClCompile Include="Pipe.cpp" />
     <ClCompile Include="Texture Module.cpp" />
     <ClCompile Include="MainFile.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Bird.h" />
     <ClInclude Include="GLOBAL_DATA.h" />
+    <ClInclude Include="Pipe.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Texture_Module.h" />
   </ItemGroup>

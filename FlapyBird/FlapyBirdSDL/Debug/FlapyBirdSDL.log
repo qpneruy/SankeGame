@@ -1,3 +1,7 @@
-﻿  MainFile.cpp
+﻿  Pipe.cpp
+  Texture Module.cpp
+  MainFile.cpp
+  Generating Code...
+LINK : warning LNK4044: unrecognized option '/mwindows'; ignored
 LINK : warning LNK4044: unrecognized option '/mwindows'; ignored
   FlapyBirdSDL.vcxproj -> D:\Project\FlapyBirdSDL-Git\FlapyBird\Debug\FlapyBirdSDL.exe
