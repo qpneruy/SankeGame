@@ -1,50 +1,29 @@
 #include "GLOBAL_DATA.h"
-#include "Texture_Module.h"
+#include "Bird.h"
 SDL_Rect gSpriteClips[4];
-class Bird: public LoadTexture {
-public:
-    Bird();
-    int DOT_Y = 684;
-    double x = 120,
-        y = 350,
-        angel = {},
-        Angel = 0,
-        vel_y = 0,
-        GRAVITY = 0.6,
-        angel_Vel = {},
-        JUMP_VELOCITY = -7,
-        Angel_Velocity = 0.3;
-
-    SDL_Rect Hitbox;
-    void BirdUpdate();
-    void BirdFlap();
-};
 
 void Bird::BirdUpdate() {
-    y += vel_y;
-    Angel += angel_Vel;
-    angel_Vel += Angel_Velocity;
-    vel_y += GRAVITY;
-    if (y > DOT_Y) {
-        y = DOT_Y;
-        vel_y = 0;
+    Bird_Y     += Velocity_Y;
+    Velocity_Y += Gravity;
+    Bird_Angel      += Velocity_Angel;
+    Velocity_Angel  += Angel_Gravity;
+    if (Bird_Angel > 33) {
+        Bird_Angel = 33;
     }
-    if (angel_Vel > 33 || Angel > 33) {
-        Angel = 33;
-        angel_Vel = 33;
+    if (Bird_Angel < -33) {
+        Bird_Angel = -32;
     }
-    if (angel_Vel < -33 || Angel < -33) {
-        Angel = -32;
-        angel_Vel = 0;
+    if (Bird_Y >= 628) {
+        Bird_Y = 628;
     }
-    if (y >= 628) {
-        y = 628;
+    if (Bird_Y <= 5) {
+        Bird_Y = 300;
     }
 }
 
 void Bird::BirdFlap() {
-    vel_y = JUMP_VELOCITY;
-    angel_Vel = -10;
+    Velocity_Y = Flap_Velocity;
+    Velocity_Angel = AngelFlap_velocity;
 }
 LoadTexture gSpriteSheetTexture;
 Bird::Bird() {

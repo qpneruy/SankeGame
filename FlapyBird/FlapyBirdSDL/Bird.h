@@ -1,19 +1,21 @@
 #pragma once
 #include "GLOBAL_DATA.h"
+#include "Texture_Module.h"
 class Bird : public LoadTexture {
     public:
         Bird();
-        int DOT_Y = 684;
-        double x = 120,
-            y = 350,
-            angel = {},
-            Angel = 0,
-            vel_y = 0,
-            GRAVITY = 0.6,
-            angel_Vel = {},
-            JUMP_VELOCITY = -7,
-            Angel_Velocity = 0.3;
+        double Bird_X = 120,
+            Bird_Y = 350,
+            Bird_Angel = 0,
 
+            Velocity_Y = 0,
+            Flap_Velocity = -7,
+            Gravity = 0.6,
+
+            Velocity_Angel = 0,
+            AngelFlap_velocity = -10,
+            Angel_Gravity = 0.8;
+  
         SDL_Rect Hitbox;
         void BirdUpdate();
         void BirdFlap();

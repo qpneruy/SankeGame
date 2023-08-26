@@ -1,20 +1,5 @@
 #include "GLOBAL_DATA.h"
-#include "Texture_Module.h"
-class Pipe : public LoadTexture {
-public:
-    Pipe();
-    int bgX = -50,
-        old_y = 0,
-        Spacing = 0,
-        pipePosX = 0,
-        pipePosY = 0,
-        bgSpeed = 3,
-        randomnumber = {};
-    SDL_Rect Hitbox;
-    SDL_Rect SpriteClipsPipe;
-    void PipeUpdate();
-    int PGenerator(int old_y);
-};
+#include "Pipe.h"
 
 Pipe::Pipe() {
     SpriteClipsPipe.h = 235;
@@ -22,7 +7,7 @@ Pipe::Pipe() {
     Hitbox.h = 235;
     Hitbox.w = 50;
 }
-
+int Pipe::PipeMovingSpeed = 3;
 int Pipe::PGenerator(int old_y) {
     int b = old_y + 40; int a = old_y - 40;
     while (randomnumber < old_y + 40 && randomnumber > old_y - 40) {
@@ -36,9 +21,9 @@ int Pipe::PGenerator(int old_y) {
 }
 
 void Pipe::PipeUpdate() {
-    bgX -= bgSpeed;
-    if (bgX <= Spacing - 50) {
-        bgX = 500 + 10;
+    Background_PosX -= PipeMovingSpeed;
+    if (Background_PosX <= Spacing - 50) {
+        Background_PosX = 500 + 10;
         Spacing = 0;
         old_y = PGenerator(old_y);
     }
